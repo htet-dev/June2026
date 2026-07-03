@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="June2026.AdoDotNet/June2026.AdoDotNet.csproj" />
+  <Project Path="June2026.InterfacePractice/June2026.InterfacePractice.csproj" />
+  <Project Path="June2026.OOPPractice/June2026.OOPPractice.csproj" />
+  <Project Path="June2026.WalletTransfer/June2026.WalletTransfer.csproj" />
+</Solution>
