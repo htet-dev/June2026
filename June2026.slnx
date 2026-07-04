@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="June2026.AbstractPractice/June2026.AbstractPractice.csproj" />
   <Project Path="June2026.AbstractPractice2/June2026.AbstractPractice2.csproj" />
+  <Project Path="June2026.AbstractPractice3/June2026.AbstractPractice3.csproj" />
   <Project Path="June2026.AdoDotNet/June2026.AdoDotNet.csproj" />
   <Project Path="June2026.InterfacePractice/June2026.InterfacePractice.csproj" />
   <Project Path="June2026.OOPPractice/June2026.OOPPractice.csproj" />
