@@ -2,7 +2,7 @@
 
 Console.WriteLine("This is an EF Core - Model First Practice.");
 
-AppDbContext db = new AppDbContext();
+June2026AppDbContext db = new June2026AppDbContext();
 var lst = db.Staffs.ToList();     //this is a LINQ method syntax.  it works the same as "Select * from Tbl_Staff"
 
 foreach(var item in lst)
