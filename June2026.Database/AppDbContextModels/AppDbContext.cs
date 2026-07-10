@@ -15,6 +15,10 @@ public partial class AppDbContext : DbContext
     {
     }
 
+    public virtual DbSet<TblAddress> TblAddresses { get; set; }
+
+    public virtual DbSet<TblMovieTicket> TblMovieTickets { get; set; }
+
     public virtual DbSet<TblProduct> TblProducts { get; set; }
 
     public virtual DbSet<TblStaff> TblStaffs { get; set; }
@@ -29,6 +33,27 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TblAddress>(entity =>
+        {
+            entity.HasKey(e => e.AddressId).HasName("PK__Tbl_Addr__091C2AFB04D8A7EF");
+
+            entity.ToTable("Tbl_Address");
+
+            entity.Property(e => e.AddressDescription).HasMaxLength(500);
+            entity.Property(e => e.AddressType).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<TblMovieTicket>(entity =>
+        {
+            entity.HasKey(e => e.TicketId).HasName("PK__Tbl_Movi__712CC607DFB687F7");
+
+            entity.ToTable("Tbl_MovieTicket");
+
+            entity.Property(e => e.TicketName).HasMaxLength(100);
+            entity.Property(e => e.TicketPrice).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.TicketType).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<TblProduct>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Tbl_Prod__3214EC073E6227BC");

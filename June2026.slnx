@@ -5,6 +5,7 @@
   <Project Path="June2026.AdoDotNet/June2026.AdoDotNet.csproj" />
   <Project Path="June2026.Dapper.SQLInjection/June2026.Dapper.SQLInjection.csproj" />
   <Project Path="June2026.Database/June2026.Database.csproj" />
+  <Project Path="June2026.EFCore.Homework/June2026.EFCore.Homework.csproj" />
   <Project Path="June2026.EFCorePractice.DatabaseFirst/June2026.EFCorePractice.DatabaseFirst.csproj" />
   <Project Path="June2026.EFCorePractice.ModelFirst/June2026.EFCorePractice.ModelFirst.csproj" />
   <Project Path="June2026.InterfacePractice/June2026.InterfacePractice.csproj" />
