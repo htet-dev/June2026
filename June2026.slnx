@@ -11,4 +11,5 @@
   <Project Path="June2026.InterfacePractice/June2026.InterfacePractice.csproj" />
   <Project Path="June2026.OOPPractice/June2026.OOPPractice.csproj" />
   <Project Path="June2026.WalletTransfer/June2026.WalletTransfer.csproj" />
+  <Project Path="June2026.WinFormsApp2/June2026.WinFormsApp2.csproj" Id="48510752-119e-4ecd-b45f-e1f548e6cc87" />
 </Solution>
