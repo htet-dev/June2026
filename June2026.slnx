@@ -3,6 +3,7 @@
   <Project Path="June2026.AbstractPractice2/June2026.AbstractPractice2.csproj" />
   <Project Path="June2026.AbstractPractice3/June2026.AbstractPractice3.csproj" />
   <Project Path="June2026.AdoDotNet/June2026.AdoDotNet.csproj" />
+  <Project Path="June2026.ConsoleApp.HttpClient/June2026.ConsoleApp.HttpClient.csproj" Id="2aa5684f-553a-45b2-9278-5d67fbb768e7" />
   <Project Path="June2026.Dapper.SQLInjection/June2026.Dapper.SQLInjection.csproj" />
   <Project Path="June2026.Database/June2026.Database.csproj" />
   <Project Path="June2026.EFCore.Homework/June2026.EFCore.Homework.csproj" />
