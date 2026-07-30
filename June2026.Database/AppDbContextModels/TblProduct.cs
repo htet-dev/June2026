@@ -5,11 +5,17 @@ namespace June2026.Database.AppDbContextModels;
 
 public partial class TblProduct
 {
-    public int Id { get; set; }
+    public int ProductId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string ProductName { get; set; } = null!;
+
+    public string? Description { get; set; }
 
     public decimal Price { get; set; }
 
-    public int Qty { get; set; }
+    public DateOnly? ExpiryDate { get; set; }
+
+    public int TotalAvailableQty { get; set; }
+
+    public virtual ICollection<TblSaleDetail> TblSaleDetails { get; set; } = new List<TblSaleDetail>();
 }

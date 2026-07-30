@@ -21,6 +21,10 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblProduct> TblProducts { get; set; }
 
+    public virtual DbSet<TblSale> TblSales { get; set; }
+
+    public virtual DbSet<TblSaleDetail> TblSaleDetails { get; set; }
+
     public virtual DbSet<TblStaff> TblStaffs { get; set; }
 
     public virtual DbSet<TblStudent> TblStudents { get; set; }
@@ -56,12 +60,42 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<TblProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Tbl_Prod__3214EC073E6227BC");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6CD8BB4D5D8");
 
             entity.ToTable("Tbl_Product");
 
-            entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ProductName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<TblSale>(entity =>
+        {
+            entity.HasKey(e => e.SaleId).HasName("PK__Tbl_Sale__1EE3C3FFD05D610D");
+
+            entity.ToTable("Tbl_Sale");
+
+            entity.Property(e => e.SaleDate).HasColumnType("datetime");
+            entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
+        });
+
+        modelBuilder.Entity<TblSaleDetail>(entity =>
+        {
+            entity.HasKey(e => e.SaleDetailId).HasName("PK__Tbl_Sale__70DB14FE8A2217F0");
+
+            entity.ToTable("Tbl_SaleDetail");
+
+            entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TblSaleDetails)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SaleDetail_Product");
+
+            entity.HasOne(d => d.Sale).WithMany(p => p.TblSaleDetails)
+                .HasForeignKey(d => d.SaleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SaleDetail_Sale");
         });
 
         modelBuilder.Entity<TblStaff>(entity =>

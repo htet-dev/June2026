@@ -8,8 +8,8 @@ Start:
 Console.WriteLine("User List: ");
 Console.WriteLine("1. View All Users");
 Console.WriteLine("2. Create User");
-Console.WriteLine("3. Edit User");
-Console.WriteLine("4. Remove User");
+Console.WriteLine("3. Update User");
+Console.WriteLine("4. Delete User");
 Console.WriteLine("5. Exit");
 int number = 0;
 
@@ -19,7 +19,6 @@ number = Convert.ToInt32(strNumber);
 
 if (number == 1)
 {
-
     // View All Users 
 
     HttpClient client = new HttpClient();
@@ -68,7 +67,7 @@ else if (number == 2)
 }
 else if (number == 3)
 {
-    // Edit User
+    // Update User
 
     Console.Write("Enter UserId: ");
     string userId = Console.ReadLine()!;
@@ -100,7 +99,7 @@ else if (number == 3)
 }
 else if (number == 4)
 {
-    // Remove User
+    // Delete User
     Console.WriteLine("Enter UserId:");
     string userId = Console.ReadLine()!;
 
