@@ -37,9 +37,9 @@ public class ProductCreateResponseModel
 
 public class ProductPatchRequestModel
 {
-    public string ProductName { get; set; }
-    public decimal Price { get; set; }
-    public int TotalAvailableQty { get; set; }
+    public string? ProductName { get; set; }
+    public decimal? Price { get; set; }
+    public int? TotalAvailableQty { get; set; }
 }
 
 public class ProductPatchResponseModel

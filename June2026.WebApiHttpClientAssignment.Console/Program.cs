@@ -82,10 +82,20 @@ else if (number == 3)
     // Update Product
     Console.Write("Enter Product Id: ");
     string productId = Console.ReadLine()!;
+
     Console.Write("Enter Product Name: ");
     string productName = Console.ReadLine()!;
-    Console.Write("Enter Price ");
-    decimal price = Convert.ToInt32(Console.ReadLine())!;
+
+    Console.Write("Enter Price: ");
+    string? strPrice = Console.ReadLine()!;
+
+    decimal price = 0;
+
+    if(!string.IsNullOrWhiteSpace(strPrice))
+    { 
+        price = Convert.ToDecimal(strPrice);
+    }
+
     Console.Write("Enter Total Available Qty: ");
     int availableQty = Convert.ToInt32(Console.ReadLine())!;
 
