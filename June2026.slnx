@@ -6,6 +6,7 @@
   <Project Path="June2026.ConsoleApp.HttpClient/June2026.ConsoleApp.HttpClient.csproj" Id="2aa5684f-553a-45b2-9278-5d67fbb768e7" />
   <Project Path="June2026.Dapper.SQLInjection/June2026.Dapper.SQLInjection.csproj" />
   <Project Path="June2026.Database/June2026.Database.csproj" />
+  <Project Path="June2026.Domain/June2026.Domain.csproj" Id="8bae2f49-a1ac-49da-afd4-dc397636f2bf" />
   <Project Path="June2026.EFCore.Homework/June2026.EFCore.Homework.csproj" />
   <Project Path="June2026.EFCorePractice.DatabaseFirst/June2026.EFCorePractice.DatabaseFirst.csproj" />
   <Project Path="June2026.EFCorePractice.ModelFirst/June2026.EFCorePractice.ModelFirst.csproj" />
@@ -13,6 +14,7 @@
   <Project Path="June2026.InterfacePractice/June2026.InterfacePractice.csproj" />
   <Project Path="June2026.OOPPractice/June2026.OOPPractice.csproj" />
   <Project Path="June2026.WalletTransfer/June2026.WalletTransfer.csproj" />
+  <Project Path="June2026.WebApi.Refactored/June2026.WebApi.Refactored.csproj" />
   <Project Path="June2026.WebApi/June2026.WebApi.csproj" Id="1afa76f7-a395-4a19-9456-b9f1fe868e1c" />
   <Project Path="June2026.WebApiHttpClientAssignment.Api/June2026.WebApiHttpClientAssignment.Api.csproj" Id="779a4880-40aa-4b9c-b6da-962d276e33d2" />
   <Project Path="June2026.WebApiHttpClientAssignment.Console/June2026.WebApiHttpClientAssignment.Console.csproj" Id="f8ef367e-3500-45c1-85c3-b0779d42483d" />
