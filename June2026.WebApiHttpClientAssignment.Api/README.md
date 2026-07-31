@@ -1,25 +1,40 @@
-# Console App calls Web APIs using HttpClient
+# Web APIs
 
-## Assignment 
+## Assignment
 
-### There are total 8 Endpoints 
+This project implements a RESTful Web API for managing products and sales. The API can be consumed by a Console Application using `HttpClient`.
 
-Product Controller:
-HTTP Method				Endpoint					Action						
-GET						/api/product				Get all products			
-GET						/api/product/{id}			Get a product by ID
-POST					/api/product				Create a new product (data comes from JSON request body)
-PATCH					/api/product/{id}			Update an existing product (data comes from JSON request body)
-DELETE					/api/product/{id}			Delete a product			
+The API exposes a total of **8 endpoints** across two controllers.
 
 ---
 
-Sale Controller:
-HTTP Method				Endpoint					Action
-GET						/api/sale					Get all sales
-GET						/api/sale/{id}				Get sale by ID
-POST					/api/sale					Create a new sale (data comes from JSON request body)
+## Product Controller
 
+| HTTP Method | Endpoint | Action |
+|-------------|----------|--------|
+| GET | `/api/product` | Get all products |
+| GET | `/api/product/{id}` | Get a product by ID |
+| POST | `/api/product` | Create a new product (data comes from JSON request body) |
+| PATCH | `/api/product/{id}` | Update an existing product (data comes from JSON request body) |
+| DELETE | `/api/product/{id}` | Delete a product |
+
+---
+
+## Sale Controller
+
+| HTTP Method | Endpoint | Action |
+|-------------|----------|--------|
+| GET | `/api/sale` | Get all sales |
+| GET | `/api/sale/{id}` | Get a sale by ID |
+| POST | `/api/sale` | Create a new sale (data comes from JSON request body) |
+
+---
+
+## Summary
+
+- **Product Controller:** 5 Endpoints
+- **Sale Controller:** 3 Endpoints
+- **Total:** 8 endpoints
 
 ## Database
 
