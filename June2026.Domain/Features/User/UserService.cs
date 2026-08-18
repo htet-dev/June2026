@@ -6,179 +6,178 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace June2026.Domain.Features.User
+namespace June2026.Domain.Features.User;
+
+public class UserService
 {
-    public class UserService
+    private readonly AppDbContext _db;
+
+    public UserService()
     {
-        private readonly AppDbContext _db;
+        _db = new AppDbContext();
+    }
 
-        public UserService()
+    public UserListResponseModel GetUsers(UserListRequestModel requestModel)
+    {
+        try
         {
-            _db = new AppDbContext();
+            var lst = _db.TblUsers.ToList();
+
+            return new UserListResponseModel
+            {
+                Users = lst.Select(x => new UserModel
+                {
+                    UserId = x.UserId,
+                    Username = x.Username
+                }).ToList()
+            };
         }
-
-        public UserListResponseModel GetUsers(UserListRequestModel requestModel)
+        catch (Exception ex)
         {
-            try
+            return new UserListResponseModel
             {
-                var lst = _db.TblUsers.ToList();
-
-                return new UserListResponseModel
-                {
-                    Users = lst.Select(x => new UserModel
-                    {
-                        UserId = x.UserId,
-                        Username = x.Username
-                    }).ToList()
-                };
-            }
-            catch (Exception ex)
-            {
-                return new UserListResponseModel
-                {
-                    IsSuccess = false,
-                    Message = ex.ToString(),
-                };
-            }
+                IsSuccess = false,
+                Message = ex.ToString(),
+            };
         }
-       
-        public UserEditResponseModel GetUser(UserEditRequestModel requestModel)
+    }
+   
+    public UserEditResponseModel GetUser(UserEditRequestModel requestModel)
+    {
+        try
         {
-            try
-            {
-                var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
-                if (item is null)
-                {
-                    return new UserEditResponseModel
-                    {
-                        IsSuccess = false,
-                        Message = "User does not exist."
-                    };
-                }
-
-                return new UserEditResponseModel
-                {
-                    IsSuccess = true,
-                    Message = "User fetched successfully.",
-                    UserId = item.UserId,
-                    Username = item.Username
-                };
-            }
-            catch (Exception ex)
+            var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
+            if (item is null)
             {
                 return new UserEditResponseModel
                 {
                     IsSuccess = false,
-                    Message = ex.ToString()
+                    Message = "User does not exist."
                 };
-            }            
+            }
+
+            return new UserEditResponseModel
+            {
+                IsSuccess = true,
+                Message = "User fetched successfully.",
+                UserId = item.UserId,
+                Username = item.Username
+            };
         }
-
-        public UserCreateResponseModel CreateUser(UserCreateRequestModel requestModel)
+        catch (Exception ex)
         {
-            try
+            return new UserEditResponseModel
             {
-                TblUser user = new TblUser
-                {
-                    Username = requestModel.Username,
-                    Password = requestModel.Password
-                };
-                _db.TblUsers.Add(user);
-                int result = _db.SaveChanges();
+                IsSuccess = false,
+                Message = ex.ToString()
+            };
+        }            
+    }
 
-                UserCreateResponseModel model = new UserCreateResponseModel
-                {
-                    IsSuccess = result > 0,
-                    Message = result > 0 ? "Saving Successful." : "Saving Failed.",
-                    UserId = user.UserId
-                };
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                return new UserCreateResponseModel
-                {
-                    IsSuccess = false,
-                    Message = ex.ToString()
-                };                
-            }             
-        }        
-        public UserPatchResponseModel PatchUser(UserPatchRequestModel requestModel)
+    public UserCreateResponseModel CreateUser(UserCreateRequestModel requestModel)
+    {
+        try
         {
-            try
+            TblUser user = new TblUser
             {
-                var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
-                if (item is null)
-                {
-                    return new UserPatchResponseModel
-                    {
-                        Message = "User does not exist."
-                    };
-                }
+                Username = requestModel.Username,
+                Password = requestModel.Password
+            };
+            _db.TblUsers.Add(user);
+            int result = _db.SaveChanges();
 
-                if (!string.IsNullOrEmpty(requestModel.Username))
-                {
-                    item.Username = requestModel.Username;
-                }
+            UserCreateResponseModel model = new UserCreateResponseModel
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Saving Successful." : "Saving Failed.",
+                UserId = user.UserId
+            };
 
-                if (!string.IsNullOrEmpty(requestModel.Password))
-                {
-                    item.Password = requestModel.Password;
-                }
-
-                int result = _db.SaveChanges();
-
-                UserPatchResponseModel model = new UserPatchResponseModel
-                {
-                    IsSuccess = result > 0,
-                    Message = result > 0 ? "Updating Successful." : "Updating Failed."
-                };
-
-                return model;
-            }
-            catch (Exception ex)
+            return model;
+        }
+        catch (Exception ex)
+        {
+            return new UserCreateResponseModel
+            {
+                IsSuccess = false,
+                Message = ex.ToString()
+            };                
+        }             
+    }        
+    public UserPatchResponseModel PatchUser(UserPatchRequestModel requestModel)
+    {
+        try
+        {
+            var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
+            if (item is null)
             {
                 return new UserPatchResponseModel
                 {
-                    IsSuccess = false,
-                    Message = ex.ToString()
-                };                
-            }            
-        }
-
-        public UserDeleteResponseModel DeleteUser(UserDeleteRequestModel requestModel)
-        {
-            try
-            {
-                var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
-                if (item is null)
-                {
-                    return new UserDeleteResponseModel
-                    {
-                        Message = "User does not exist."
-                    };
-                }
-
-                _db.Remove(item);
-                int result = _db.SaveChanges();
-
-                UserDeleteResponseModel model = new UserDeleteResponseModel
-                {
-                    IsSuccess = result > 0,
-                    Message = result > 0 ? "Deleting Successful." : "Deleting Failed."
+                    Message = "User does not exist."
                 };
-
-                return model;
             }
-            catch (Exception ex)
+
+            if (!string.IsNullOrEmpty(requestModel.Username))
+            {
+                item.Username = requestModel.Username;
+            }
+
+            if (!string.IsNullOrEmpty(requestModel.Password))
+            {
+                item.Password = requestModel.Password;
+            }
+
+            int result = _db.SaveChanges();
+
+            UserPatchResponseModel model = new UserPatchResponseModel
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Updating Successful." : "Updating Failed."
+            };
+
+            return model;
+        }
+        catch (Exception ex)
+        {
+            return new UserPatchResponseModel
+            {
+                IsSuccess = false,
+                Message = ex.ToString()
+            };                
+        }            
+    }
+
+    public UserDeleteResponseModel DeleteUser(UserDeleteRequestModel requestModel)
+    {
+        try
+        {
+            var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
+            if (item is null)
             {
                 return new UserDeleteResponseModel
                 {
-                    IsSuccess = false,
-                    Message = ex.ToString()
+                    Message = "User does not exist."
                 };
-            }            
-        }       
-    }
+            }
+
+            _db.Remove(item);
+            int result = _db.SaveChanges();
+
+            UserDeleteResponseModel model = new UserDeleteResponseModel
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Deleting Successful." : "Deleting Failed."
+            };
+
+            return model;
+        }
+        catch (Exception ex)
+        {
+            return new UserDeleteResponseModel
+            {
+                IsSuccess = false,
+                Message = ex.ToString()
+            };
+        }            
+    }       
 }
