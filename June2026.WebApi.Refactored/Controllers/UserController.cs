@@ -13,15 +13,16 @@ namespace June2026.WebApi.Controllers;
 public class UserController : ControllerBase
 {
     private readonly UserService _userService;
-    public UserController()
+
+    public UserController(UserService userService)
     {
-        _userService = new UserService();
+        _userService = userService;
     }
 
     [HttpGet]
-    public IActionResult GetUsers()
+    public async Task<IActionResult> GetUsersAsync()
     {
-        var model = _userService.GetUsers(new UserListRequestModel());
+        var model = await _userService.GetUsersAsync(new UserListRequestModel());
 
         if(model.IsSuccess)
         {
@@ -37,9 +38,9 @@ public class UserController : ControllerBase
     // api/user/1
     [HttpGet("Edit/{id}")]
     [HttpGet("{id}")]
-    public IActionResult GetUser(int id)
+    public async Task<IActionResult> GetUserAsync(int id)
     {
-        var model = _userService.GetUser(new UserEditRequestModel { UserId = id });
+        var model = await _userService.GetUserAsync(new UserEditRequestModel { UserId = id });
 
         if(model.IsSuccess)
         {
@@ -52,9 +53,9 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateUser([FromBody] UserCreateRequestModel requestModel)
+    public async Task<IActionResult> CreateUserAsync([FromBody] UserCreateRequestModel requestModel)
     {
-        var model = _userService.CreateUser(requestModel);
+        var model = await _userService.CreateUserAsync(requestModel);
 
         if (model.IsSuccess)
         {
@@ -67,9 +68,9 @@ public class UserController : ControllerBase
     }    
 
     [HttpPatch("{id}")]
-    public IActionResult PatchUser(int id, UserPatchRequestModel requestModel)
+    public async Task<IActionResult> PatchUserAsync(int id, UserPatchRequestModel requestModel)
     {
-        var model = _userService.PatchUser(new UserPatchRequestModel  
+        var model = await _userService.PatchUserAsync(new UserPatchRequestModel  
         { 
            UserId = id,
            Username = requestModel.Username,
@@ -87,9 +88,9 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{UserId}")]
-    public IActionResult DeleteUser(UserDeleteRequestModel requestModel)
+    public async Task<IActionResult> DeleteUserAsync(UserDeleteRequestModel requestModel)
     {
-        var model = _userService.DeleteUser(requestModel);
+        var model = await _userService.DeleteUserAsync(requestModel);
 
         if (model.IsSuccess)
         {

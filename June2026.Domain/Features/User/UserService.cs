@@ -1,5 +1,6 @@
 ﻿using June2026.Database.AppDbContextModels;
 using June2026.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +13,30 @@ public class UserService
 {
     private readonly AppDbContext _db;
 
-    public UserService()
+    public UserService(AppDbContext db)
     {
-        _db = new AppDbContext();
+        _db = db;
     }
 
-    public UserListResponseModel GetUsers(UserListRequestModel requestModel)
+    public async Task<UserListResponseModel> GetUsersAsync(UserListRequestModel requestModel)
     {
         try
         {
-            var lst = _db.TblUsers.ToList();
+            var lst = await _db.TblUsers
+                .OrderByDescending(x => x.UserId)
+                .ToListAsync();
 
             return new UserListResponseModel
             {
+                IsSuccess = true,
+                Message = "Users fetched successfully.",
+
                 Users = lst.Select(x => new UserModel
                 {
                     UserId = x.UserId,
                     Username = x.Username
-                }).ToList()
+                }).ToList(),
+
             };
         }
         catch (Exception ex)
@@ -41,12 +48,13 @@ public class UserService
             };
         }
     }
-   
-    public UserEditResponseModel GetUser(UserEditRequestModel requestModel)
+
+    public async Task<UserEditResponseModel> GetUserAsync(UserEditRequestModel requestModel)
     {
         try
         {
-            var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
+            var item = await _db.TblUsers
+                .FirstOrDefaultAsync(x => x.UserId == requestModel.UserId);
             if (item is null)
             {
                 return new UserEditResponseModel
@@ -71,10 +79,10 @@ public class UserService
                 IsSuccess = false,
                 Message = ex.ToString()
             };
-        }            
+        }
     }
 
-    public UserCreateResponseModel CreateUser(UserCreateRequestModel requestModel)
+    public async Task<UserCreateResponseModel> CreateUserAsync(UserCreateRequestModel requestModel)
     {
         try
         {
@@ -83,8 +91,8 @@ public class UserService
                 Username = requestModel.Username,
                 Password = requestModel.Password
             };
-            _db.TblUsers.Add(user);
-            int result = _db.SaveChanges();
+            await _db.TblUsers.AddAsync(user);
+            int result = await _db.SaveChangesAsync();
 
             UserCreateResponseModel model = new UserCreateResponseModel
             {
@@ -101,14 +109,14 @@ public class UserService
             {
                 IsSuccess = false,
                 Message = ex.ToString()
-            };                
-        }             
-    }        
-    public UserPatchResponseModel PatchUser(UserPatchRequestModel requestModel)
+            };
+        }
+    }
+    public async Task<UserPatchResponseModel> PatchUserAsync(UserPatchRequestModel requestModel)
     {
         try
         {
-            var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
+            var item = await _db.TblUsers.FirstOrDefaultAsync(x => x.UserId == requestModel.UserId);
             if (item is null)
             {
                 return new UserPatchResponseModel
@@ -127,7 +135,7 @@ public class UserService
                 item.Password = requestModel.Password;
             }
 
-            int result = _db.SaveChanges();
+            int result = await _db.SaveChangesAsync();
 
             UserPatchResponseModel model = new UserPatchResponseModel
             {
@@ -143,15 +151,15 @@ public class UserService
             {
                 IsSuccess = false,
                 Message = ex.ToString()
-            };                
-        }            
+            };
+        }
     }
 
-    public UserDeleteResponseModel DeleteUser(UserDeleteRequestModel requestModel)
+    public async Task<UserDeleteResponseModel> DeleteUserAsync(UserDeleteRequestModel requestModel)
     {
         try
         {
-            var item = _db.TblUsers.FirstOrDefault(x => x.UserId == requestModel.UserId);
+            var item = await _db.TblUsers.FirstOrDefaultAsync(x => x.UserId == requestModel.UserId);
             if (item is null)
             {
                 return new UserDeleteResponseModel
@@ -161,7 +169,7 @@ public class UserService
             }
 
             _db.Remove(item);
-            int result = _db.SaveChanges();
+            int result = await _db.SaveChangesAsync();
 
             UserDeleteResponseModel model = new UserDeleteResponseModel
             {
@@ -178,6 +186,6 @@ public class UserService
                 IsSuccess = false,
                 Message = ex.ToString()
             };
-        }            
-    }       
+        }
+    }
 }

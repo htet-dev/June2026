@@ -12,6 +12,7 @@
   <Project Path="June2026.EFCorePractice.ModelFirst/June2026.EFCorePractice.ModelFirst.csproj" />
   <Project Path="June2026.EncapsulationPractice1/June2026.EncapsulationPractice1.csproj" Id="e567786d-9421-495b-a69a-ef31981c6a49" />
   <Project Path="June2026.InterfacePractice/June2026.InterfacePractice.csproj" />
+  <Project Path="June2026.MvcApp/June2026.MvcApp.csproj" Id="2ddf1fe6-bb63-4ee8-b954-52230d812dcd" />
   <Project Path="June2026.OOPPractice/June2026.OOPPractice.csproj" />
   <Project Path="June2026.WalletTransfer/June2026.WalletTransfer.csproj" />
   <Project Path="June2026.WebApi.Refactored/June2026.WebApi.Refactored.csproj" />
